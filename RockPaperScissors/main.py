@@ -1,8 +1,7 @@
 """
 Author: Nathaniel Lee, Kacper Wajler, Suvanjal Dhungana
 Module: main
-Description: This module contains the main function that runs the Rock Paper Scissors game. 
-It initializes the game, handles user input, and manages the game loop until the user decides to quit.
+Description: This module contains the main function that runs the Rock Paper Scissors game. It initializes the game, handles user input, and manages the game loop until the user decides to quit.
 """
 
 import time
@@ -31,7 +30,7 @@ def get_tournament_format():
         tournament = input("Select tournament format (best-of-3, best-of-5, best-of-7): ").lower().strip()
         if tournament in valid_formats:
             return tournament
-        print(f"Invalid format. Please choose from: {valid_formats}")
+        print(f"Invalid format. Please choose from: {', '.join(valid_formats)}")
 
 
 def get_ai_difficulty():
@@ -41,7 +40,7 @@ def get_ai_difficulty():
         difficulty = input("Choose AI difficulty (easy, medium, hard, boss): ").lower().strip()
         if difficulty in valid_difficulties:
             return difficulty
-        print(f"Invalid difficulty. Please choose from: {valid_difficulties}")
+        print(f"Invalid difficulty. Please choose from: {', '.join(valid_difficulties)}")
 
 
 def main():
@@ -60,8 +59,15 @@ def main():
             from ai_game_logic import play_single_game
             play_single_game(ai_difficulty)
             
-    except ValueError:
-        print(f"\nERROR")
+    except ImportError as e:
+        print(f"\nERROR: Could not import game modules: {e}")
+        print("Please ensure the following files are in the same directory:")
+        print("  - tournament_logic.py")
+        print("  - ai_game_logic.py")
+        return
+    except Exception as e:
+        print(f"\nERROR during game execution: {e}")
+        return
     
     print("\n" + "=" * 50)
     print("Thanks for playing! Goodbye!")
