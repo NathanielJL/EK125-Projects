@@ -1,6 +1,16 @@
 '''
 Author: Suvanjal Dhungana 
-Module: Tournament Sytem 
+Module: tournament_logic
+Description: Tracks round scores, determines winner and ability to play again
+
+Student B: Tournament System
+- Best-of-3, best-of-5, best-of-7 formats
+- Round tracking (display current round, scores)
+- Match winner determination
+- Series winner determination
+- Ability to play multiple series
+
+'''
 
 def playseries(bestof):
         playerScore = 0
@@ -8,7 +18,7 @@ def playseries(bestof):
         roundNumber = 1
         roundsNeededToWin = (format //2 ) + 1
 
-        print("Starting best of ",+format+"Series")
+        print("Starting best of ",+ format +"Series")
 
         while playerScore < roundsNeededToWin and aiScore < roundsNeededToWin :
             print("Round ",roundNumber)
