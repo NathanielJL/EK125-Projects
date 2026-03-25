@@ -25,7 +25,7 @@ def playseries(bestof):
             playerMove = get_player_move()
             aiMove = get_ai_move()
 
-            roundResult = determineRounderWinner(playerMove, aiMove)
+            roundResult = determine_winner(playerMove, aiMove)
 
             if roundResult == "Player":
                 playerScore = playerScore + 1
