@@ -15,7 +15,6 @@ Student A: Core Game Logic & AI
 
 import random
 import os
-import json
 
 def get_player_move():
     "Get validated player move from user input."
