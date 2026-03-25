@@ -24,6 +24,9 @@ def playseries(bestof):
 
         while playerScore < roundsNeededToWin and aiScore < roundsNeededToWin :
             print("Round ",roundNumber)
+            
+            from ai_game_logic import get_player_move, get_ai_move, determine_winner
+            
             playerMove = get_player_move()
             aiMove = get_ai_move()
 
@@ -50,6 +53,9 @@ def tournamentLoop():
         '''Enables the function above, using function from ai logic containing user format choice
         and asks user again to play another series'''
     while True:
+
+        from main import get_tournament_format
+
         bestof = get_tournament_format()
         playseries(bestof)
 
