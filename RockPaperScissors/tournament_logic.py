@@ -22,8 +22,8 @@ def playseries(bestof):
 
         while playerScore < roundsNeededToWin and aiScore < roundsNeededToWin :
             print("Round ",roundNumber)
-            playerMove = get_Player_move()
-            aiMove = get_AImove()
+            playerMove = get_player_move()
+            aiMove = get_ai_move()
 
             roundResult = determineRounderWinner(playerMove, aiMove)
 
