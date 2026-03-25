@@ -19,11 +19,14 @@ import os
 def play_single_game(ai_difficulty, player_history):
     "Play a single game and update the standardized history list."
     player_move = get_player_move()
+    
     ai_move = get_ai_move(ai_difficulty, player_history)
     player_history.append(player_move) 
     result = determine_winner(player_move, ai_move)
     print(f"\nAI played: {ai_move.upper()}")
     print(f"Result: {result.upper()}")
+    print("")
+    print("=" * 50)
     return result
 
 def get_player_move():
@@ -37,7 +40,7 @@ def get_player_move():
         if not user_input:
             print("Error: Input cannot be empty. Please try again.")
             continue
-        
+
         if user_input in valid_moves:
             return user_input
         

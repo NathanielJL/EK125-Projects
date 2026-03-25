@@ -52,11 +52,19 @@ def main():
     try:
         if game_mode == 'tournament':
             tournament_format = get_tournament_format()
-            from tournament_logic import #placeholder
-            #placeholder (tournament_format, ai_difficulty)
+            from tournament_logic import tournamentLoop
+            tournamentLoop(tournament_format, ai_difficulty)
         else:
             from ai_game_logic import play_single_game
-            play_single_game(ai_difficulty)
+            
+            player_history = []
+
+            while True:
+                play_single_game(ai_difficulty, player_history)
+
+                play_again = input("\nPlay another game? (yes/no): ").lower().strip()
+                if play_again != 'yes':
+                    break
     
     except ValueError as e:
         print(f"\nERROR: {e}")

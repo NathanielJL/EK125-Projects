@@ -62,5 +62,4 @@ def tournamentLoop():
         another_series = input("Do you want to play another series? (y/n): ").lower()
         if another_series != "y":
             break
-
     print("Thank you for playing!")
