@@ -46,7 +46,7 @@ def playseries(bestof):
 
 def tournamentLoop():
     while True:
-        bestof = startTournament()
+        bestof = get_tournament_format()
         playseries(bestof)
 
         another_series = input("Do you want to play another series? (y/n): ").lower()
