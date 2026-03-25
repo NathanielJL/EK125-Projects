@@ -45,7 +45,6 @@ def get_ai_difficulty():
 
 def main():
     "Main entry point for the game."
-    
     display_welcome()
     game_mode = get_game_mode()
     ai_difficulty = get_ai_difficulty()
@@ -56,8 +55,8 @@ def main():
             from tournament_logic import #placeholder
             #placeholder (tournament_format, ai_difficulty)
         else:
-            from ai_game_logic import #placeholder
-            #placeholder(ai_difficulty)
+            from ai_game_logic import play_single_game
+            play_single_game(ai_difficulty)
     
     except ValueError as e:
         print(f"\nERROR: {e}")

@@ -16,6 +16,16 @@ Student A: Core Game Logic & AI
 import random
 import os
 
+def play_single_game(ai_difficulty, player_history):
+    "Play a single game and update the standardized history list."
+    player_move = get_player_move()
+    ai_move = get_ai_move(ai_difficulty, player_history)
+    player_history.append(player_move) 
+    result = determine_winner(player_move, ai_move)
+    print(f"\nAI played: {ai_move.upper()}")
+    print(f"Result: {result.upper()}")
+    return result
+
 def get_player_move():
     "Get validated player move from user input."
     valid_moves = ['rock', 'paper', 'scissors']
@@ -39,6 +49,8 @@ def get_ai_move(difficulty, player_history=None):
     "Get AI move based on difficulty level."
     if player_history is None:
         player_history = []
+
+    from boss_ai_logic import boss_ai
 
     if difficulty == 'easy':
         return easy_ai(player_history)
