@@ -13,6 +13,8 @@ Student B: Tournament System
 '''
 
 def playseries(bestof):
+        '''Enables user to play a round, uses function from ai logic module, displays current round and score, 
+        ultimately displaying the winner of the series '''
         playerScore = 0
         aiScore=0
         roundNumber = 1
@@ -45,6 +47,8 @@ def playseries(bestof):
             print("AI wins this series!")
 
 def tournamentLoop():
+        '''Enables the function above, using function from ai logic containing user format choice
+        and asks user again to play another series'''
     while True:
         bestof = get_tournament_format()
         playseries(bestof)
