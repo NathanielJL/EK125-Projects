@@ -1,4 +1,6 @@
-
+'''
+Author: Suvanjal Dhungana 
+Module: Tournament Sytem 
 
 def playseries(bestof):
         playerScore = 0
