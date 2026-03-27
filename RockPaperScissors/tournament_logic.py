@@ -11,8 +11,11 @@ Student B: Tournament System
 - Ability to play multiple series
 
 '''
+from statistics import update_stats
+from ai_game_logic import get_player_move, get_ai_move, determine_winner
+from main import get_tournament_format #function used from ai_game_logic
 
-def playseries(tournament):
+def playseries(tournament, ai_difficulty, stats):
         '''Enables user to play a round, uses function from ai logic module, displays current round and score, 
         ultimately displaying the winner of the series '''
         bestof = int(tournament.split("-")[-1])
@@ -23,24 +26,31 @@ def playseries(tournament):
         roundsNeededToWin = (bestof // 2 ) + 1
 
         print(f"Starting {tournament} Series")
-        from ai_game_logic import get_player_move, get_ai_move, determine_winner
+        
         while playerScore < roundsNeededToWin and aiScore < roundsNeededToWin :
             print("Round ",roundNumber)
                 
             playerMove = get_player_move() #function used from ai_game_logic
-            aiMove = get_ai_move() #function used from ai_game_logic
+            aiMove = get_ai_move(ai_difficulty) #function used from ai_game_logic
 
             roundResult = determine_winner(playerMove, aiMove) #function used from ai_game_logic
 
+            #update scores
             if roundResult == "Player":
                 playerScore = playerScore + 1
                 print("Player wins this round!")
+                result ='win'
             elif roundResult == "AI":
                 aiScore = aiScore + 1
                 print("AI wins this round!")
+                result ='loss'
             else:
                 print("This round is a tie!")
+                result ='tie'
 
+            # update stats here
+
+            stats = update_stats(stats, playerMove, aiMove, result)
             print("Score: Player", playerScore, "AI - ", aiScore)
             roundNumber = roundNumber + 1
 
@@ -48,18 +58,19 @@ def playseries(tournament):
             print("Player wins this series!")
         else:
             print("AI wins this series!")
+        return stats
 
-def tournamentLoop():
-        '''Enables the function above, using function from ai logic containing user format choice
-        and asks user again to play another series'''
+
+def tournamentLoop(tournament, ai_difficulty, stats):
+    '''Enables the function above, using function from ai logic containing user format choice
+    and asks user again to play another series'''
     while True:
-        from main import get_tournament_format #function used from ai_game_logic
-
         tournament = get_tournament_format()
-        playseries(tournament)
+        stats = playseries(tournament, ai_difficulty,stats)
 
-        another_series = input("Do you want to play another series? (y/n): ").lower()
-        if another_series != "y":
+        another_series = input("Do you want to play another series? (yes/no): ").lower()
+        if another_series != "yes":
             break
     
     print("Thank you for playing!")
+    return stats
