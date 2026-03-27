@@ -64,7 +64,7 @@ def main():
             player_history = []
 
             while True:
-                play_single_game(ai_difficulty, player_history)
+                result, player_move, ai_move = play_single_game(ai_difficulty, player_history)
 
                 stats = update_stats(stats, player_move, ai_move, result)
 
