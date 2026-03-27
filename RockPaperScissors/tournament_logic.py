@@ -12,25 +12,25 @@ Student B: Tournament System
 
 '''
 
-def playseries(bestof):
+def playseries(tournament):
         '''Enables user to play a round, uses function from ai logic module, displays current round and score, 
         ultimately displaying the winner of the series '''
+        bestof = int(tournament.split("-")[-1])
+        
         playerScore = 0
         aiScore=0
         roundNumber = 1
-        roundsNeededToWin = (format //2 ) + 1
+        roundsNeededToWin = (bestof // 2 ) + 1
 
-        print("Starting best of ",+ format +"Series")
-
+        print(f"Starting {tournament} Series")
+        from ai_game_logic import get_player_move, get_ai_move, determine_winner
         while playerScore < roundsNeededToWin and aiScore < roundsNeededToWin :
             print("Round ",roundNumber)
-            
-            from ai_game_logic import get_player_move, get_ai_move, determine_winner
-            
-            playerMove = get_player_move() '''function used from ai_game_logic'''
-            aiMove = get_ai_move() '''function used from ai_game_logic'''
+                
+            playerMove = get_player_move() #function used from ai_game_logic
+            aiMove = get_ai_move() #function used from ai_game_logic
 
-            roundResult = determine_winner(playerMove, aiMove)#function used from ai_game_logic
+            roundResult = determine_winner(playerMove, aiMove) #function used from ai_game_logic
 
             if roundResult == "Player":
                 playerScore = playerScore + 1
@@ -53,10 +53,10 @@ def tournamentLoop():
         '''Enables the function above, using function from ai logic containing user format choice
         and asks user again to play another series'''
     while True:
-        from main import get_tournament_format '''function used from ai_game_logic'''
+        from main import get_tournament_format #function used from ai_game_logic
 
-        bestof = get_tournament_format()
-        playseries(bestof)
+        tournament = get_tournament_format()
+        playseries(tournament)
 
         another_series = input("Do you want to play another series? (y/n): ").lower()
         if another_series != "y":
