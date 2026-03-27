@@ -1,4 +1,6 @@
 """
+Author: Kacper Wajler
+
 Student C: Statistics & Analysis
 - Track win/loss/tie for each throw type
 - Calculate win percentage
