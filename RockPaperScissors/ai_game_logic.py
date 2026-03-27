@@ -28,7 +28,7 @@ def play_single_game(ai_difficulty, player_history):
     result = determine_winner(player_move, ai_move)
     print(f"\nAI played: {ai_move.upper()}")
     print(f"Result: {result.upper()}")
-    return result
+    return result, player_move, ai_move
 
 def get_player_move():
     "Get validated player move from user input."

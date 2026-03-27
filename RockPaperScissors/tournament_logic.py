@@ -53,7 +53,6 @@ def tournamentLoop():
         '''Enables the function above, using function from ai logic containing user format choice
         and asks user again to play another series'''
     while True:
-
         from main import get_tournament_format '''function used from ai_game_logic'''
 
         bestof = get_tournament_format()
@@ -62,4 +61,5 @@ def tournamentLoop():
         another_series = input("Do you want to play another series? (y/n): ").lower()
         if another_series != "y":
             break
+    
     print("Thank you for playing!")
