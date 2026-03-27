@@ -6,6 +6,8 @@ Description: This module contains the main function that runs the Rock Paper Sci
 
 import time
 
+from statistics import initialize_stats, display_stats, update_stats
+
 def display_welcome():
     "Display welcome banner and menu."
     print("Starting in 3 seconds...")
@@ -48,18 +50,21 @@ def main():
     display_welcome()
     game_mode = get_game_mode()
     ai_difficulty = get_ai_difficulty()
+
+    stats = initialize_stats()
     
     try:
         if game_mode == 'tournament':
             tournament_format = get_tournament_format()
             from tournament_logic import tournamentLoop
-            tournamentLoop(tournament_format, ai_difficulty)
+            tournamentLoop(tournament_format, ai_difficulty, stats)
         else:
             from ai_game_logic import play_single_game
             
             player_history = []
 
             while True:
+<<<<<<< HEAD
                 history_before_round = list(player_history)
  
                 result = play_single_game(ai_difficulty, player_history)
@@ -73,12 +78,20 @@ def main():
  
                     update_boss_ai(history_before_round, player_move_this_round, ai_result)
  
+=======
+                result, player_move, ai_move = play_single_game(ai_difficulty, player_history)
+
+                stats = update_stats(stats, player_move, ai_move, result)
+
+>>>>>>> cd30cfa2b1a372d9f465163687680bdf0b95c5df
                 play_again = input("\nPlay another game? (yes/no): ").lower().strip()
                 if play_again != 'yes':
                     break
     
     except ValueError as e:
         print(f"\nERROR: {e}")
+
+    display_stats(stats)
     
     print("\n" + "=" * 50)
     print("Thanks for playing! Goodbye!")

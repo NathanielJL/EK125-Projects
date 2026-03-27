@@ -27,10 +27,10 @@ def playseries(bestof):
             
             from ai_game_logic import get_player_move, get_ai_move, determine_winner
             
-            playerMove = get_player_move()
-            aiMove = get_ai_move()
+            playerMove = get_player_move() '''function used from ai_game_logic'''
+            aiMove = get_ai_move() '''function used from ai_game_logic'''
 
-            roundResult = determine_winner(playerMove, aiMove)
+            roundResult = determine_winner(playerMove, aiMove)#function used from ai_game_logic
 
             if roundResult == "Player":
                 playerScore = playerScore + 1
@@ -54,7 +54,7 @@ def tournamentLoop():
         and asks user again to play another series'''
     while True:
 
-        from main import get_tournament_format
+        from main import get_tournament_format '''function used from ai_game_logic'''
 
         bestof = get_tournament_format()
         playseries(bestof)
