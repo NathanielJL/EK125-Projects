@@ -56,7 +56,7 @@ def main():
         if game_mode == 'tournament':
             tournament_format = get_tournament_format()
             from tournament_logic import tournamentLoop
-            tournamentLoop(tournament_format, ai_difficulty, stats)
+            stats = tournamentLoop(tournament_format, ai_difficulty, stats)
         else:
             from ai_game_logic import play_single_game
             
