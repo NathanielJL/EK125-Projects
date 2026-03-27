@@ -36,11 +36,11 @@ def playseries(tournament, ai_difficulty, stats):
             roundResult = determine_winner(playerMove, aiMove) #function used from ai_game_logic
 
             #update scores
-            if roundResult == "Player":
+            if roundResult == "win":
                 playerScore = playerScore + 1
                 print("Player wins this round!")
                 result ='win'
-            elif roundResult == "AI":
+            elif roundResult == "loss":
                 aiScore = aiScore + 1
                 print("AI wins this round!")
                 result ='loss'
@@ -65,7 +65,6 @@ def tournamentLoop(tournament, ai_difficulty, stats):
     '''Enables the function above, using function from ai logic containing user format choice
     and asks user again to play another series'''
     while True:
-        tournament = get_tournament_format()
         stats = playseries(tournament, ai_difficulty,stats)
 
         another_series = input("Do you want to play another series? (yes/no): ").lower()
