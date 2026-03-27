@@ -12,10 +12,6 @@ def initialize_stats():
     '''
     Creates and returns a clean statistics dictionary with all 
     values set to zero.
-    
-    returns: 
-        stats (dict): A dictionary tracking wins, losses, ties, 
-                      streaks, and ai throws for each throw type.
     '''
     stats = {
         'total_games': 0,
@@ -54,18 +50,6 @@ def initialize_stats():
 def update_stats(stats, player_throw, ai_throw, result):
     '''
     Updates the stats dictionary after each round of the game.
-
-    Args:
-        stats (dict): The current stats dictionary to update.
-        player_throw (str): The players chosen throw (rock, paper, 
-                            scissors).
-        ai_throw (str): The ai's chosen throw (rock, paper, 
-                        scissors).
-        result (str): The result of the game from players POV (win, 
-                      loss, tie).
-    
-    Returns:
-        stats (dict): The updated stats dictionary.
     '''
     stats['total_games'] += 1
 
@@ -91,13 +75,6 @@ def update_stats(stats, player_throw, ai_throw, result):
 def calculate_win_percentage(stats):
     '''
     Calculates the player's win percentage from the stats dictionary.
-
-    Args:
-        stats (dict): The current statistics dictionary.
-
-    Returns:
-        winPercentage (float): The percentage of games won, 
-                               between 0.0 and 100.0.
     '''
     if stats['total_games'] == 0:
         return 0.0
@@ -111,15 +88,6 @@ def calculate_win_percentage(stats):
 def get_most_common(stats):
     '''
     Determines the most common throw for both the player and the AI.
-
-    Args:
-        stats (dict): The current statistics dictionary.
-
-    Returns:
-        most_common_player (str): The player's most frequently thrown 
-                                  move (rock, paper, or scissors).
-        most_common_ai (str): The AI's most frequently thrown move 
-                              (rock, paper, or scissors).
     '''
     player_throws = {
         'rock': stats['rock']['wins'] + stats['rock']['losses'] + stats['rock']['ties'],
@@ -135,12 +103,6 @@ def get_most_common(stats):
 def display_stats(stats):
     '''
     Displays a formatted end of series statistics report.
-
-    Args:
-        stats (dict): The current statistics dictionary.
-
-    Returns:
-        None
     '''
     win_pct = calculate_win_percentage(stats)
     most_common_player, most_common_ai = get_most_common(stats)
