@@ -60,8 +60,19 @@ def main():
             player_history = []
 
             while True:
-                play_single_game(ai_difficulty, player_history)
-
+                history_before_round = list(player_history)
+ 
+                result = play_single_game(ai_difficulty, player_history)
+ 
+                if ai_difficulty == 'boss' and player_history:
+                    from boss_ai_logic import update_boss_ai
+                    player_move_this_round = player_history[-1]
+ 
+                    flip = {'win': 'loss', 'loss': 'win', 'tie': 'tie'}
+                    ai_result = flip.get(result, 'tie')
+ 
+                    update_boss_ai(history_before_round, player_move_this_round, ai_result)
+ 
                 play_again = input("\nPlay another game? (yes/no): ").lower().strip()
                 if play_again != 'yes':
                     break
