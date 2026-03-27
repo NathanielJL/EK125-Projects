@@ -6,6 +6,8 @@ Description: This module contains the main function that runs the Rock Paper Sci
 
 import time
 
+from statistics import initialize_stats, display_stats, update_stats
+
 def display_welcome():
     "Display welcome banner and menu."
     print("Starting in 3 seconds...")
@@ -45,29 +47,35 @@ def get_ai_difficulty():
 
 def main():
     "Main entry point for the game."
-    
     display_welcome()
     game_mode = get_game_mode()
     ai_difficulty = get_ai_difficulty()
+
+    stats = initialize_stats()
     
     try:
         if game_mode == 'tournament':
             tournament_format = get_tournament_format()
-            from tournament_logic import run_tournament
-            run_tournament(tournament_format, ai_difficulty)
+            from tournament_logic import tournamentLoop
+            tournamentLoop(tournament_format, ai_difficulty, stats)
         else:
             from ai_game_logic import play_single_game
-            play_single_game(ai_difficulty)
             
-    except ImportError as e:
-        print(f"\nERROR: Could not import game modules: {e}")
-        print("Please ensure the following files are in the same directory:")
-        print("  - tournament_logic.py")
-        print("  - ai_game_logic.py")
-        return
-    except Exception as e:
-        print(f"\nERROR during game execution: {e}")
-        return
+            player_history = []
+
+            while True:
+                play_single_game(ai_difficulty, player_history)
+
+                stats = update_stats(stats, player_move, ai_move, result)
+
+                play_again = input("\nPlay another game? (yes/no): ").lower().strip()
+                if play_again != 'yes':
+                    break
+    
+    except ValueError as e:
+        print(f"\nERROR: {e}")
+
+    display_stats(stats)
     
     print("\n" + "=" * 50)
     print("Thanks for playing! Goodbye!")

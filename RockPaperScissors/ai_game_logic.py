@@ -4,18 +4,29 @@ Module: ai_game_logic
 Description: Handles AI opponents with different difficulty levels.
 """
 
+"""
+Student A: Core Game Logic & AI
+- Implement basic rock-paper-scissors rules
+- Random AI (completely random choices)
+- Pattern AI (looks for player patterns in last 3–5 moves)
+- Counter AI (plays what would beat player’s most common choice)
+- Input validation for player choices
+"""
+
 import random
-import json
 import os
 
 def play_single_game(ai_difficulty, player_history):
     "Play a single game and update the standardized history list."
     player_move = get_player_move()
+    
     ai_move = get_ai_move(ai_difficulty, player_history)
     player_history.append(player_move) 
     result = determine_winner(player_move, ai_move)
     print(f"\nAI played: {ai_move.upper()}")
     print(f"Result: {result.upper()}")
+    print("")
+    print("=" * 50)
     return result
 
 def get_player_move():
@@ -29,11 +40,7 @@ def get_player_move():
         if not user_input:
             print("Error: Input cannot be empty. Please try again.")
             continue
-        
-        if not user_input.isalpha():
-            print("Error: Input contains invalid characters. Use only letters.")
-            continue
-        
+
         if user_input in valid_moves:
             return user_input
         
@@ -45,6 +52,8 @@ def get_ai_move(difficulty, player_history=None):
     "Get AI move based on difficulty level."
     if player_history is None:
         player_history = []
+
+    from boss_ai_logic import boss_ai
 
     if difficulty == 'easy':
         return easy_ai(player_history)
@@ -96,9 +105,6 @@ def hard_ai(player_history):
     most_common_move = max(move_counts, key=move_counts.get)
     return get_counter_move(most_common_move)
 
-def boss_ai(player_history):
-    "Boss AI - Q-Learning model that learns optimal strategies."
-
 def get_counter_move(move):
     "Get the move that beats the given move."
     counters = {
@@ -120,18 +126,3 @@ def determine_winner(player_move, ai_move):
     if player_move == 'paper' and ai_move == 'rock':
         return 'win'
     return 'loss'
-
-def validate_move(move):
-    "Validate that a move is one of the three valid options."
-    if not move:
-        return False
-    
-    move = move.lower().strip()
-    valid_moves = ['rock', 'paper', 'scissors']
-    return move in valid_moves
-
-def update_boss_ai(player_history, player_move, result):
-    "Update the Q-learning AI with new game result."
-
-def save_boss_ai_model():
-    "Save the trained Q-learning model to disk."
