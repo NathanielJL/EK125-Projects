@@ -11,11 +11,11 @@ import json
 moves = ['rock', 'paper', 'scissors']
 move_to_number = {'rock': 0, 'paper': 1, 'scissors': 2}
 save_file = "boss_ai_model.json"
-learning_rate = 0.1
+learning_rate = 0.6
 discount = 0.9
 random_choice = 0.15
 win_reward  =  1.0
-tie_reward  =  0.0
+tie_reward  =  -0.3
 loss_reward = -1.0
 
 num_situations = 9   
