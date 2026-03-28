@@ -73,3 +73,63 @@ def tournamentLoop(tournament, ai_difficulty, stats):
     
     print("Thank you for playing!")
     return stats
+
+#test cases 
+def test_playseries():
+    player_moves = test_get_player_move()
+    ai_moves = test_get_ai_move('easy')
+    stats = {}
+
+    # Replace the original functions with test versions inside playseries
+    def get_player_move():
+        return next(player_moves)
+
+    def get_ai_move(ai_difficulty):
+        return next(ai_moves)
+
+    def determine_winner(player_move, ai_move):
+        return test_determine_winner(player_move, ai_move)
+
+    def update_stats(stats, player_move, ai_move, result):
+        return test_update_stats(stats, player_move, ai_move, result)
+
+        #running a test with own numbers 
+    bestof = 3
+    playerScore = 0
+    aiScore = 0
+    roundNumber = 1
+    roundsNeededToWin = (bestof // 2) + 1
+
+    print(f"Starting best-of-{bestof} Series")
+
+    while playerScore < roundsNeededToWin and aiScore < roundsNeededToWin:
+        print("Round", roundNumber)
+
+        playerMove = get_player_move()
+        aiMove = get_ai_move('easy')
+
+        roundResult = determine_winner(playerMove, aiMove)
+
+        if roundResult == "win":
+            playerScore += 1
+            print("Player wins this round!")
+            result = 'win'
+        elif roundResult == "loss":
+            aiScore += 1
+            print("AI wins this round!")
+            result = 'loss'
+        else:
+            print("This round is a tie!")
+            result = 'tie'
+
+        stats = update_stats(stats, playerMove, aiMove, result)
+        print(f"Score: Player {playerScore} - AI {aiScore}")
+        roundNumber += 1
+
+    if playerScore > aiScore:
+        print("Player wins this series!")
+    else:
+        print("AI wins this series!")
+    return stats
+
+if __name
