@@ -17,6 +17,7 @@ import random
 import os
 
 def play_single_game(ai_difficulty, player_history):
+    """Prints result of other functions."""
     player_move = get_player_move()
     ai_move = get_ai_move(ai_difficulty, player_history)
 
@@ -31,7 +32,7 @@ def play_single_game(ai_difficulty, player_history):
     return result, player_move, ai_move
 
 def get_player_move():
-    "Get validated player move from user input."
+    """Get validated player move from user input."""
     valid_moves = ['rock', 'paper', 'scissors']
     
     while True:
@@ -52,7 +53,7 @@ def get_player_move():
 from boss_ai_logic import boss_ai
 
 def get_ai_move(difficulty, player_history=None):
-    "Get AI move based on difficulty level."
+    """Get AI move based on difficulty level."""
     if player_history is None:
         player_history = []
 
@@ -68,12 +69,12 @@ def get_ai_move(difficulty, player_history=None):
         return easy_ai(player_history)
 
 def easy_ai(player_history=None):
-    "Random AI - completely random choices."
+    """Random AI - completely random choices."""
     moves = ['rock', 'paper', 'scissors']
     return random.choice(moves)
 
 def medium_ai(player_history):
-    "Pattern AI - looks for patterns in player's last 3-5 moves"
+    """Pattern AI - looks for patterns in player's last 3-5 moves"""
     if player_history is None or len(player_history) < 2:
         return easy_ai() 
     
@@ -93,7 +94,7 @@ def medium_ai(player_history):
         return easy_ai()
 
 def hard_ai(player_history):
-    "Counter AI - plays what would beat player's most common choice overall."
+    """Counter AI - plays what would beat player's most common choice overall."""
     if player_history is None or len(player_history) == 0:
         return easy_ai()
     
@@ -107,7 +108,7 @@ def hard_ai(player_history):
     return get_counter_move(most_common_move)
 
 def get_counter_move(move):
-    "Get the move that beats the given move."
+    """Get the move that beats the given move."""
     counters = {
         'rock': 'paper',      
         'paper': 'scissors',  
@@ -116,7 +117,7 @@ def get_counter_move(move):
     return counters.get(move, 'rock')
 
 def determine_winner(player_move, ai_move):
-    "Determine winner of a single round."
+    """Determine winner of a single round."""
     if player_move == ai_move:
         return 'tie'
     

@@ -3,7 +3,6 @@ Author: Nathaniel Lee
 Module: boss_ai_logic
 Description: Q-Learning Boss AI for rock-paper-scissors.
 """
-
 import numpy as np
 import os
 import json
@@ -23,7 +22,7 @@ num_responses  = 3
 
 
 def load_q_table():
-    "Load the AI's learned scores from disk."
+    """Load the AI's learned scores from disk."""
     if os.path.exists(save_file):
         try:
             with open(save_file, 'r') as f:
@@ -37,14 +36,14 @@ def load_q_table():
     return np.zeros((num_situations, num_responses), dtype=float)
 
 def write_q_table(q_table):
-    "Save the AI's learned scores to disk so they survive between sessions."
+    """""Save the AI's learned scores to disk so they survive between sessions."""
     temp_file = save_file + ".tmp"
     with open(temp_file, 'w') as f:
         json.dump({"q_table": q_table.tolist()}, f, indent=2)
     os.replace(temp_file, save_file)
 
 def get_situation(player_history):
-    "Turn the player's last 2 moves into a single row number for the Q-table."
+    """Turn the player's last 2 moves into a single row number for the Q-table."""""
     if len(player_history) == 0:
         return 0
 
@@ -57,7 +56,7 @@ def get_situation(player_history):
     return second_to_last * 3 + last
 
 def boss_ai(player_history):
-    "Choose the AI's move for this round."
+    """Choose the AI's move for this round."""""
     if not player_history:
         from ai_game_logic import easy_ai
         return easy_ai()
@@ -73,7 +72,7 @@ def boss_ai(player_history):
 
 
 def update_boss_ai(player_history, player_move, result):
-    "After each round, update the AI's scores based on what happened."
+    """""""After each round, update the AI's scores based on what happened."""
     if player_move not in move_to_number:
         return
 
