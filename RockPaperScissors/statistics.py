@@ -142,3 +142,60 @@ def display_stats(stats):
             print(f"    vs AI {ai_throw.capitalize():8s}: {count} time(s)")
 
     print("=" * 50)
+
+#Test Cases
+
+def test_initialize_stats():
+    stats = initialize_stats()
+    if stats['total_games'] == 0 and stats['current_streak'] == 0 and stats['longest_streak'] == 0:
+        print("PASS: initialize_stats creates all zero values")
+    else:
+        print("FAIL: initialize_stats did not initialize correctly")
+
+def test_update_stats_win():
+    stats = initialize_stats()
+    stats = update_stats(stats, 'rock', 'scissors', 'win')
+    if stats['rock']['wins'] == 1 and stats['total_games'] == 1 and stats['current_streak'] == 1:
+        print("PASS: update_stats correctly handles a win with rock")
+    else:
+        print("FAIL: win not recorded correctly")
+
+def test_update_stats_streak_resets_on_loss():
+    stats = initialize_stats()
+    stats = update_stats(stats, 'rock', 'scissors', 'win')
+    stats = update_stats(stats, 'rock', 'scissors', 'win')
+    stats = update_stats(stats, 'scissors', 'rock', 'loss')
+    if stats['current_streak'] == 0 and stats['longest_streak'] == 2:
+        print("PASS: streak resets on loss and longest streak saved correctly")
+    else:
+        print("FAIL: streak logic incorrect")
+
+def test_calculate_win_percentage():
+    stats = initialize_stats()
+    stats = update_stats(stats, 'rock', 'scissors', 'win')
+    stats = update_stats(stats, 'paper', 'rock', 'win')
+    stats = update_stats(stats, 'scissors', 'rock', 'loss')
+    stats = update_stats(stats, 'rock', 'rock', 'tie')
+    pct = calculate_win_percentage(stats)
+    if pct == 50.0:
+        print("PASS: win percentage calculated correctly")
+    else:
+        print(f"FAIL: expected 50.0%, got {pct}%")
+
+def test_get_most_common():
+    stats = initialize_stats()
+    stats = update_stats(stats, 'rock', 'paper', 'loss')
+    stats = update_stats(stats, 'rock', 'scissors', 'win')
+    stats = update_stats(stats, 'paper', 'rock', 'win')
+    most_common_player, most_common_ai = get_most_common(stats)
+    if most_common_player == 'rock':
+        print("PASS: most common player throw identified correctly")
+    else:
+        print(f"FAIL: expected rock, got {most_common_player}")
+
+if __name__ == '__main__':
+    test_initialize_stats()
+    test_update_stats_win()
+    test_update_stats_streak_resets_on_loss()
+    test_calculate_win_percentage()
+    test_get_most_common()
