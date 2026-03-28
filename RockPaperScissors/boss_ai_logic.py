@@ -14,8 +14,8 @@ save_file = "boss_ai_model.json"
 learning_rate = 0.6
 discount = 0.9
 random_choice = 0.15
-win_reward  =  1.0
-tie_reward  =  -0.3
+win_reward =  1.0
+tie_reward =  -0.3
 loss_reward = -1.0
 
 num_situations = 9   
@@ -62,7 +62,7 @@ def boss_ai(player_history):
         from ai_game_logic import easy_ai
         return easy_ai()
 
-    q_table   = load_q_table()
+    q_table = load_q_table()
     situation = get_situation(player_history)
 
     if np.random.random() < random_choice:
@@ -77,21 +77,20 @@ def update_boss_ai(player_history, player_move, result):
     if player_move not in move_to_number:
         return
 
-    q_table   = load_q_table()
+    q_table = load_q_table()
     situation = get_situation(player_history)
 
     ai_move_index = int(np.argmax(q_table[situation]))
 
     rewards = {'win': win_reward, 'tie': tie_reward, 'loss': loss_reward}
-    reward  = rewards.get(result, tie_reward)
+    reward = rewards.get(result, tie_reward)
 
-    next_situation    = get_situation(player_history + [player_move])
+    next_situation = get_situation(player_history + [player_move])
     best_future_score = float(np.max(q_table[next_situation]))
 
     current_score = q_table[situation, ai_move_index]
     q_table[situation, ai_move_index] = (
-        current_score
-        + learning_rate * (reward + discount * best_future_score - current_score)
+        current_score + learning_rate * (reward + discount * best_future_score - current_score)
     )
 
     write_q_table(q_table)
