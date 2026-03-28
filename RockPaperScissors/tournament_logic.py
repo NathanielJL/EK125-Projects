@@ -132,5 +132,5 @@ def test_playseries():
         print("AI wins this series!")
     return stats
 
-if __name__ = '__main__'
-
+if __name__ == '__main__':
+    main()

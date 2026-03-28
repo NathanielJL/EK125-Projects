@@ -128,3 +128,54 @@ def determine_winner(player_move, ai_move):
     if player_move == 'paper' and ai_move == 'rock':
         return 'win'
     return 'loss'
+
+# Test Cases
+
+from ai_game_logic import get_ai_move, determine_winner, get_counter_move
+
+def run_tests():
+    print("Starting AI Game Logic Tests...\n")
+    
+    # 1. Test Hard AI Strategy
+    hist_hard = ['rock'] * 10 + ['scissors'] * 5
+    assert get_ai_move('hard', hist_hard) == 'paper', "Hard AI failed to counter overall most common move."
+    print("Test 1 Passed: Hard AI correctly counters overall history.")
+
+    # 2. Test Medium AI Pattern
+    hist_med = ['rock', 'rock', 'rock', 'rock', 'rock', 'scissors', 'scissors', 'scissors']
+    # Last 5 are: ['rock', 'rock', 'scissors', 'scissors', 'scissors'] -> scissors is most common in window
+    assert get_ai_move('medium', hist_med) == 'rock', "Medium AI failed to focus on recent pattern."
+    print("Test 2 Passed: Medium AI correctly counters recent pattern.")
+
+    # 3. Test Cold Start
+    empty_hist = []
+    move = get_ai_move('hard', empty_hist)
+    assert move in ['rock', 'paper', 'scissors'], "AI failed to handle empty history."
+    print("Test 3 Passed: AI handled empty history (Cold Start).")
+
+    # 4. Test Tie-Break in Frequency
+    tie_hist = ['rock', 'paper']
+    move_tie = get_ai_move('hard', tie_hist)
+    assert move_tie in ['paper', 'scissors'], "AI failed to handle frequency tie-break."
+    print("Test 4 Passed: AI handled frequency tie-break.")
+
+    # 5. Test Win/Loss Logic
+    assert determine_winner('rock', 'scissors') == 'win', "Win logic failed: Rock vs Scissors."
+    assert determine_winner('paper', 'paper') == 'tie', "Tie logic failed: Paper vs Paper."
+    assert determine_winner('scissors', 'rock') == 'loss', "Loss logic failed: Scissors vs Rock."
+    print("Test 5 Passed: Core win/loss logic is accurate.")
+
+    # 6. Test Counter Mapping
+    assert get_counter_move('scissors') == 'rock', "Counter logic failed for scissors."
+    assert get_counter_move('invalid') == 'rock', "Counter logic failed to provide default for invalid input."
+    print("Test 6 Passed: Counter move mapping is correct.")
+
+    print("\nAll 6 tests passed successfully!")
+
+if __name__ == "__main__":
+    try:
+        run_tests()
+    except AssertionError as e:
+        print(f"\nTEST FAILED: {e}")
+    except Exception as e:
+        print(f"\nAN ERROR OCCURRED: {e}")
