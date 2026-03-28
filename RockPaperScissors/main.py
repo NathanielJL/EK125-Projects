@@ -6,7 +6,7 @@ Description: This module contains the main function that runs the Rock Paper Sci
 
 import time
 
-from statistics import initialize_stats, update_stats, display
+from statistics import initialize_stats, update_stats, display_stats
 
 def display_welcome():
     "Display welcome banner and menu."
