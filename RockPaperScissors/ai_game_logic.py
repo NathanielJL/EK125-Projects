@@ -143,7 +143,6 @@ def run_tests():
 
     # 2. Test Medium AI Pattern
     hist_med = ['rock', 'rock', 'rock', 'rock', 'rock', 'scissors', 'scissors', 'scissors']
-    # Last 5 are: ['rock', 'rock', 'scissors', 'scissors', 'scissors'] -> scissors is most common in window
     assert get_ai_move('medium', hist_med) == 'rock', "Medium AI failed to focus on recent pattern."
     print("Test 2 Passed: Medium AI correctly counters recent pattern.")
 
